@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script src="https://cdn.tailwindcss.com"></script>
+        <title>Express</title>
+    </head>
+    <body>
+        <div class="mx-auto h-screen flex flex-col">
+            <%- include('nav'); %>
+            <div class="px-8 flex-1 bg-accents-0">
+                <main
+                    class="w-full max-w-4xl mx-auto py-16 h-full flex flex-col"
+                >
+                    <section class="flex flex-col gap-6">
+                        <h2 class="text-3xl font-semibold tracking-tight">
+                            CKBox integration with Express
+                        </h2>
+                    </section>
+                    <hr class="border-t border-accents-2 my-6" />
+                    <section class="flex flex-col gap-3">
+                        <p>Below you can find example integrations of CKBox.</p>
+                        <p>
+                            In a typical scenario access to CKBox will be
+                            restricted to authenticated users only. Therefore,
+                            each sample is restricted to signed in users only.
+                            Use different credentials to unlock various CKBox
+                            roles. See available users
+                            <a
+                                href="https://github.com/ckbox-io/ckbox-express-example/blob/main/routes/auth.js"
+                                target="_blank"
+                                rel="noreferrer"
+                                class="text-blue-600 hover:text-blue-800"
+                                >here</a
+                            >.
+                        </p>
+                        <div class="flex-1 hidden md:flex gap-2">
+                            <ol>
+                                <li>
+                                    <a
+                                        class="text-blue-600 hover:text-blue-800"
+                                        href="/inline"
+                                        >Inline mode</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        class="text-blue-600 hover:text-blue-800"
+                                        href="/file-picker"
+                                        >File picker</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        class="text-blue-600 hover:text-blue-800"
+                                        href="/ckeditor"
+                                        >CKEditor</a
+                                    >
+                                </li>
+                            </ol>
+                        </div>
+                    </section>
+                </main>
+            </div>
+        </div>
+    </body>
+</html>

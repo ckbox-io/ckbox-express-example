@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://cdn.ckbox.io/ckbox/2.1.0/ckbox.js"></script>
+        <title>File picker</title>
+    </head>
+    <body>
+        <div class="mx-auto h-screen flex flex-col">
+            <%- include('nav'); %>
+            <div class="px-8 flex-1 bg-accents-0">
+                <main
+                    class="w-full max-w-4xl mx-auto py-16 h-full flex flex-col"
+                >
+                    <section class="flex flex-col gap-6">
+                        <h2 class="text-4xl font-semibold tracking-tight">
+                            File Picker
+                        </h2>
+                    </section>
+                    <hr class="border-t border-accents-2 my-6" />
+                    <section class="flex flex-col gap-3">
+                        One of the common scenarios is to use CKBox as a file
+                        picker, where the user can choose one of the files
+                        stored in the file manager. After choosing the file, we
+                        want to obtain information about the chosen files,
+                        especially their URLs.
+                        <div>
+                            <button
+                                id="choose-assets"
+                                class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-1.5"
+                            >
+                                Choose assets
+                            </button>
+                        </div>
+                        <div id="ckbox"></div>
+                    </section>
+                    <section class="flex flex-col gap-3">
+                        <ul id="assets-list"></ul>
+                    </section>
+                </main>
+            </div>
+        </div>
+        <script>
+            const chooseBtn = document.getElementById('choose-assets');
+            const assetsList = document.getElementById('assets-list');
+
+            const handleChoose = (assets) => {
+                assetsList.innerHTML = '';
+
+                const name = assets.forEach(({ data }) => {
+                    const item = document.createElement('li');
+                    const name = document.createElement('span');
+
+                    name.textContent = `${data.name}.${data.extension}`;
+
+                    if (data.url) {
+                        const link = document.createElement('a');
+                        const linkClasses = [
+                            'text-blue-600',
+                            'hover:text-blue-800',
+                            'visited:text-purple-600'
+                        ];
+
+                        link.classList.add(...linkClasses);
+                        link.setAttribute('href', data.url);
+                        link.setAttribute('target', '_blank');
+                        link.setAttribute('rel', 'noreferrer');
+
+                        link.appendChild(name);
+                        item.appendChild(link);
+                    } else {
+                        item.appendChild(name);
+                    }
+
+                    assetsList.appendChild(item);
+                });
+            };
+
+            chooseBtn.addEventListener('click', () => {
+                CKBox.mount(document.getElementById('ckbox'), {
+                    tokenUrl: '<%= tokenUrl %>',
+                    dialog: true,
+                    assets: { onChoose: handleChoose }
+                });
+            });
+        </script>
+    </body>
+</html>
